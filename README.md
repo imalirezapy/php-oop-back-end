@@ -1,5 +1,5 @@
 # root directory
 name: test
 # admin page
-admin
-111
+``` username: admin ```
+``` password: 111 ```
