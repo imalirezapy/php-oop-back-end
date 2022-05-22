@@ -1,5 +1,7 @@
 # root directory
 name: test
 # admin page
-``` username: admin ```
+``` 
+username: admin
+```
 ``` password: 111 ```
