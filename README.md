@@ -1,5 +1,6 @@
-# root directory
-folder name: ```test```
+# configuration
+ in ``` config.php ``` set yout data's
 # admin page
-``` username: admin``` <br>
-``` password: 111 ```
+if you want be admin
+on ``` users ``` tabel , 
+set ``` isAdmin``` col. to number 1
