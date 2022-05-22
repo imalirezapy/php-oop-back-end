@@ -1,5 +1,5 @@
-# php-oop-back-end
-root directory name: test
-#admin page
+# root directory
+name: test
+# admin page
 admin
 111
