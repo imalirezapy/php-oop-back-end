@@ -1,5 +1,5 @@
 <?php
-
+include "../vendor/autoload.php";
 if (isset($_GET['id'])){
 
     if (isset($_SESSION['cart-data']) && array_key_exists($_GET['id'], $_SESSION['cart-data'])){
