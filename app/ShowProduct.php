@@ -49,7 +49,7 @@ class ShowProduct
         }
         $food->SQL .= " order by id DESC";
         $result = $food->get();
-
+//        var_dump((new Redirect())->redirect("manage-food.php"));
         if ($result->rowCount() != 0) {
             return $result;
 

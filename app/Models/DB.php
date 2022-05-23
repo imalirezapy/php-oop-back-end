@@ -18,8 +18,10 @@ class DB
     public $SQL = "";
     public function __construct()
     {
-
-        $config= include($_SERVER['DOCUMENT_ROOT'] . '/test/Config.php');
+        $array = array_slice(explode("/", $_SESSION['url']), 1);
+        $length = array_search("templates", $array);
+        $exec = join(array_slice($array, 0, $length));
+        $config= include($_SERVER['DOCUMENT_ROOT'] . "/$exec/Config.php");
         $this->config = $config;
         $stmt = (new \PDO("mysql:host={$config['host']};port={$config['port']}", $config['username'], $config['password']))->prepare("CREATE DATABASE IF NOT EXISTS {$config['dbname']} COLLATE utf8mb4_persian_ci");
         $stmt->execute();
