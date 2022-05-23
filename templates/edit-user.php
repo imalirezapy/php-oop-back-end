@@ -5,11 +5,15 @@ require_once "./../vendor/autoload.php";
 $obj = (new \App\Controllers\ErrorHandling());
 
 include '../view/header.php';
-
+$user = new \App\Models\User();
 if (isset($_GET['id'])) {
+
     $id = (int)$_GET['id'];
-    $food = new \App\Models\User();
-    $result = $food->find(compact("id"))->fetchAll(PDO::FETCH_ASSOC)[0];
+    $_SESSION['user-id']=$id;
+    $result = $user->find(compact("id"))->fetchAll(PDO::FETCH_ASSOC)[0];
+} elseif (isset($_SESSION['user-id'])){
+    $id = $_SESSION['user-id'];
+    $result = $user->find(compact("id"))->fetchAll(PDO::FETCH_ASSOC)[0];
 
 }
 ?>
@@ -22,12 +26,12 @@ if (isset($_GET['id'])) {
 
     <div class="register-box">
         <div class="register-logo">
-            <b>ثبت نام در سایت</b>
+            <b>افزودن</b>
         </div>
 
         <div class="card">
             <div class="card-body register-card-body">
-                <p class="login-box-msg">ثبت نام کاربر جدید</p>
+                <p class="login-box-msg">افزودن کاربر جدید</p>
                 <?php (new \App\Controllers\ErrorHandling)->show_error();$_SESSION['errors'] = []?>
                 <form action="../requests/register-request.php" method="post">
                 <?php if (isset($result)) { ?>
@@ -64,7 +68,7 @@ if (isset($_GET['id'])) {
                         </div>
                         <!-- /.col -->
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block btn-flat">ثبت نام</button>
+                            <a ><button  type="submit" class="btn btn-primary btn-block btn-flat">افزودن کاربر</button></a>
                         </div>
                         <!-- /.col -->
                     </div>

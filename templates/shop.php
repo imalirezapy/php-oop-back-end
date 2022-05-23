@@ -3,9 +3,7 @@
 $title = "فروشگاه";
 include "../vendor/autoload.php";
 include '../view/header.php';
-include "../app/database.php";
-//error_reporting(E_ERROR | E_PARSE);
-//$_SESSION['cart-data'] = [];
+
 ?>
 <!-- Header-->
 <!--<header class="bg-dark py-5">-->
@@ -41,13 +39,11 @@ include "../app/database.php";
 
                 <?php
                 $result = \App\ShowProduct::show_product();
-//                print_r($result->fetchAll(PDO::FETCH_ASSOC)[0]);
-//                print_r($result->fetchAll(PDO::FETCH_ASSOC)[0]);
                 if ($result) {
                     foreach ($result->fetchAll(PDO::FETCH_ASSOC) as $id=>$food){
                     ?>
 
-                    <div class="col-lg-3 col-md-4 col-sm-6 mb-5 justify-content-center">
+                    <div class=" col-md-4 col-sm-6 mb-5 justify-content-center">
                         <div class="card h-100">
                             <!-- Product image-->
                             <img class="card-img-top ml-auto mr-auto" style="width: 200px; height: 200px" src="../foods/<?= $food['image'] ?>" height="300" width="450" />
@@ -66,17 +62,21 @@ include "../app/database.php";
                                     <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="manage-food.php">ویرایش</a></div>
 
                                 <?php } else {?>
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="../requests/cart-request.php?id=<?= $food['id'] ?>">Add to cart</a></div>
+                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="../requests/cart-request.php?id=<?= $food['id'] ?>">افزودن به سبد خرید</a></div>
                                 <?php }?>
                                 <!--                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="login.php">Add to cart</a></div>-->
                             </div>
                         </div>
                     </div>
                 <?php
-                }}?>
+                }
+                } else {?>
+                        <div class="mr-auto ml-auto">
+                            <h2>محصولی برای نمایش وجود ندارد!</h2>
+                        </div>
+                <?php }?>
             </div>
         </div>
-
 </section>
 <!-- Footer-->
 <footer class="py-5 bg-dark">

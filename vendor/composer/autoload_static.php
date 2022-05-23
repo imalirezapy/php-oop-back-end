@@ -7,10 +7,6 @@ namespace Composer\Autoload;
 class ComposerStaticInit4aff1017e1179b41b01a4b79e6699811
 {
     public static $files = array (
-        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
-        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
-        '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
-        '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '5cb8acf936dede800faa34cc3d3f34c1' => __DIR__ . '/../..' . '/lang/fa/attrebute.php',
         'de167cbf10b603f5f8de3710ea67ac70' => __DIR__ . '/../..' . '/lang/fa/validate.php',
         '1624c242471e570a45fea6572ab19fc6' => __DIR__ . '/../..' . '/app/App.php',
@@ -20,17 +16,6 @@ class ComposerStaticInit4aff1017e1179b41b01a4b79e6699811
         'T' => 
         array (
             'Templates\\' => 10,
-        ),
-        'P' => 
-        array (
-            'Psr\\Http\\Message\\' => 17,
-            'Psr\\Http\\Client\\' => 16,
-        ),
-        'G' => 
-        array (
-            'GuzzleHttp\\Psr7\\' => 16,
-            'GuzzleHttp\\Promise\\' => 19,
-            'GuzzleHttp\\' => 11,
         ),
         'A' => 
         array (
@@ -43,27 +28,6 @@ class ComposerStaticInit4aff1017e1179b41b01a4b79e6699811
         'Templates\\' => 
         array (
             0 => __DIR__ . '/../..' . '/templates',
-        ),
-        'Psr\\Http\\Message\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
-        ),
-        'Psr\\Http\\Client\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/http-client/src',
-        ),
-        'GuzzleHttp\\Psr7\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
-        ),
-        'GuzzleHttp\\Promise\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
-        ),
-        'GuzzleHttp\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
         'Auth\\' => 
         array (

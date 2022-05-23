@@ -2,17 +2,12 @@
 
 namespace App\Models;
 
+
 class DB
 {
+    private $config = null;
+
     protected $pdo = null;
-
-    protected $host = "localhost";
-
-    protected $db = "test";
-
-    protected $username = "root";
-
-    protected $password = "";
 
     protected $table = null;
 
@@ -24,7 +19,13 @@ class DB
     public function __construct()
     {
 
-        $this->pdo = new \PDO("mysql:host={$this->host};dbname={$this->db}", $this->username, $this->password);
+        $config= include($_SERVER['DOCUMENT_ROOT'] . '/test/Config.php');
+        $this->config = $config;
+        $stmt = (new \PDO("mysql:host={$config['host']};port={$config['port']}", $config['username'], $config['password']))->prepare("CREATE DATABASE IF NOT EXISTS {$config['dbname']} COLLATE utf8mb4_persian_ci");
+        $stmt->execute();
+
+        $this->pdo = new \PDO("mysql:host={$config['host']};port={$config['port']};dbname={$config['dbname']}", $config['username'], $config['password']);
+
     }
 
     private function prepare($SQL, $data)
@@ -60,5 +61,30 @@ class DB
         return $stmt;
     }
 
+    public function update($data){
+        $params = array_map(fn($item, $field) => "$item='$field'", array_keys($data), array_values($data));
+        $params = join(", ", array_slice($params, 1));
+
+        $stmt = $this->pdo->prepare("update {$this->table} set {$params} where id = {$data['id']}");
+        $stmt->execute();
+        return $stmt;
+    }
+
+    public function delete($data)
+    {
+        $key = array_keys($data)[0];
+        $value = $data[$key];
+        $stmt = $this->pdo->prepare("delete from {$this->table} where {$key} = {$value}");
+        $stmt->execute();
+    }
+
+    public function creatTable($name, $sql)
+    {
+
+        $stmt = $this->pdo->prepare("CREATE table IF NOT EXISTS {$name} (id INT( 11 ) AUTO_INCREMENT PRIMARY KEY, " . $sql . " )");
+        $stmt->execute();
+
+    }
 
 }
+

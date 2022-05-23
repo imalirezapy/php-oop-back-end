@@ -20,9 +20,15 @@ include "../app/database.php";
 
 if (isset($_GET['id'])) {
     $id = (int)$_GET['id'];
+    $_SESSION['food-id']=$id;
     $food = new \App\Models\Food();
     $result = $food->find(compact("id"))->fetchAll(PDO::FETCH_ASSOC)[0];
 
+
+} elseif (isset($_SESSION['food-id'])) {
+    $id = $_SESSION['food-id'];
+    $food = new \App\Models\Food();
+    $result = $food->find(compact("id"))->fetchAll(PDO::FETCH_ASSOC)[0];
 
 }
 ?>

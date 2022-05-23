@@ -216,7 +216,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="../templates/manage-food.php" class="nav-link">
+                                        <a href="../templates/shop.php" class="nav-link">
                                             <i class="fa fa-shopping-bag nav-icon"></i>
                                             <p>فروشگاه</p>
                                         </a>

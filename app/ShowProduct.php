@@ -4,6 +4,7 @@ namespace App;
 
 use App\Controllers\ErrorHandling;
 use App\Models\Food;
+use App\Models\Redirect;
 
 class ShowProduct
 {
@@ -11,8 +12,6 @@ class ShowProduct
     public static function show_product()
     {
         $food = new Food();
-        $link = connect();
-        select_db();
         $array = [];
 
         $obj = new ErrorHandling();
@@ -41,7 +40,7 @@ class ShowProduct
                 $array[] = "price <= '{$max_price}'";
             }
         } else {
-            echo '<script>window.location.replace("/test/manage-food.php")</script>';
+            echo (new Redirect())->redirect("manage-food.php");
         }
 
 

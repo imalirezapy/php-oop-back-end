@@ -13,6 +13,6 @@ $validat = (new \App\Controllers\ErrorHandling)->validateTest([
 if (!$validat){
     print_r($_GET);
 } else{
-    echo '<script>window.location.replace("/test/templates/edit-user.php")</script>';
+    echo (new \App\Models\Redirect())->redirect("templates/edit-user.php");
 
 }

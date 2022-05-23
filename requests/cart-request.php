@@ -1,17 +1,15 @@
 <?php
 include "../app/database.php";
-
+include "../vendor/autoload.php";
 $link = connect();
 select_db();
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $SQL = "select * from foods where id = ? ";
-    $stmt = mysqli_prepare($link, $SQL);
-    mysqli_stmt_bind_param($stmt, 's', $id);
-    mysqli_stmt_execute($stmt);
 
-    if ($result = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt))) {
+    $food = new \App\Models\Food();
+
+    if ($result = $food->find(compact("id"))->fetchAll(PDO::FETCH_ASSOC)[0]) {
 
 
         if (! isset($_SESSION['cart-data'])) {
@@ -25,4 +23,6 @@ if (isset($_GET['id'])) {
         }
     }
 }
-echo '<script>window.location.replace("/test/templates/shop.php")</script>';
+$red = new \App\Models\Redirect();
+echo $red->redirect("templates/shop.php");
+

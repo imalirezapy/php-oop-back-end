@@ -1,23 +1,22 @@
 <?php
 include "../app/database.php";
-
+include "../vendor/autoload.php";
 
 $link = connect();
 select_db();
 
 
 if (isset($_GET)) {
+    $red = new \App\Models\Redirect();
     if (str_contains($_SESSION['url'], "user")) {
-        $table = "users";
-        $header = '<script>window.location.replace("/test/templates/users.php")</script>';
-    }else{
-        $table = "foods";
-        $header = '<script>window.location.replace("/test/templates/manage-food.php")</script>';
+        $table = new \App\Models\User();
+        $header = $red->redirect("templates/users.php");
+    } else {
+        $table = new \App\Models\Food();
+        $header = $red->redirect("templates/manage-food.php");
     }
+
     $id = (int)$_GET['id'];
-    $SQL = "delete from {$table} where id =  ?";
-    $stmt = mysqli_prepare($link, $SQL);
-    mysqli_stmt_bind_param($stmt, 'i', $id);
-    mysqli_stmt_execute($stmt);
+    $table->delete(compact("id"));
     echo $header;
 }

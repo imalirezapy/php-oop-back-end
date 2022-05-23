@@ -6,7 +6,6 @@ $obj = (new \App\Controllers\ErrorHandling());
 
 include '../view/header.php';
 
-session_destroy();
 ?>
 
 <div class="login-box" style="margin-top: 15px">
@@ -20,6 +19,7 @@ session_destroy();
             <p class="login-box-msg">فرم زیر را تکمیل کنید و ورود بزنید</p>
             <?php
             $obj->show_error();
+
             ?>
             <form action="../requests/login-request.php" method="post">
                 <small class="span-error text-danger">

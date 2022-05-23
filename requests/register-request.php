@@ -24,38 +24,33 @@ $errors = [
 ];
 
 if (isset($_POST)) {
+    $red = new \App\Models\Redirect();
     if (isset($_POST['_method']) and $_POST['_method'] == "PUT") {
         if (! $validat) {
             $id = (int)$_POST['id'];
-            $SQL = "select * from users where id =  ?";
-            $stmt = mysqli_prepare($link, $SQL);
-            mysqli_stmt_bind_param($stmt, 'i', $id);
-            mysqli_stmt_execute($stmt);
-//            $result = mysqli_stmt_get_result($stmt);
-//            print_r($result);
-//            die();
-            if ($result = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt))) {
+            $user = new \App\Models\User();
+            if ($result = $user->find(compact("id"))->fetchAll(PDO::FETCH_ASSOC)[0]) {
 
-
+                $username = $_POST['username'];
+                $email = $_POST['email'];
                 $id = (int)$_POST['id'];
-                $SQL = "update users set username=?, email=?, password=? where id=?";
-                $stmt = mysqli_prepare($link, $SQL);
+
                 $password = $_POST['password']=="Null"?$result['password']:md5($_POST['password']);
-                mysqli_stmt_bind_param($stmt, 'sssi', $_POST['username'], $_POST['email'],$password, $id);
-                mysqli_stmt_execute($stmt);
-                echo '<script>window.location.replace("/test/templates/users.php")</script>';
+                $user->update(compact("id", "username", "email", "password"));
+
+                echo $red->redirect("templates/users.php");
             }
         } else {
-            echo '<script>window.location.replace("/test/templates/edit-user.php")</script>';
+            echo $red->redirect("templates/edit-user.php");
         }
     }  else {
 
         if (isset($_POST['_method']) and $_POST['_method'] == "ADD") {
-            $error_redirect = '<script>window.location.replace("/test/templates/add-user.php")</script>';
-            $redirect = '<script>window.location.replace("/test/templates/users.php")</script>';
+            $error_redirect = $red->redirect("templates/add-user.php");
+            $redirect = $red->redirect("templates/users.php");
         } else {
-            $error_redirect = '<script>window.location.replace("/test/templates/register.php")</script>';
-            $redirect = '<script>window.location.replace("/test/templates/login.php")</script>';
+            $error_redirect = $red->redirect("templates/register.php");
+            $redirect = $red->redirect("templates/login.php");
         }
 
         if (!$validat) {
@@ -70,7 +65,7 @@ if (isset($_POST)) {
 
                     $stmt = $user->find(compact("username"));
 
-                    if (!$result = $stmt->fetchAll(PDO::FETCH_ASSOC)[0]) {
+                    if (empty($stmt->fetchAll(PDO::FETCH_ASSOC)[0])) {
                         $password = md5($password);
                         $user = new \App\Models\User();
                         $user->create(compact('username', 'email', 'password'));

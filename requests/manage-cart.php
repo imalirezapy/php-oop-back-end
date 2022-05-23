@@ -1,5 +1,5 @@
 <?php
-
+include "../vendor/autoload.php";
 if (isset($_GET['id'])){
 
     if (isset($_SESSION['cart-data']) && array_key_exists($_GET['id'], $_SESSION['cart-data'])){
@@ -12,4 +12,5 @@ if (isset($_GET['id'])){
         }
     }
 }
-echo '<script>window.location.replace("/test/templates/cart.php")</script>';
+echo (new \App\Models\Redirect())->redirect("templates/cart.php");
+//echo "<script>window.location.replace('templates/cart.php')</script>";

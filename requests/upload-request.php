@@ -11,60 +11,57 @@ $validat = (new \App\Controllers\ErrorHandling())->validateTest([
     'description' => ['required'],
 ]);
 
+$food = new \App\Models\Food();
 //var_dump($_FILES);
 if (isset($_POST)) {
-
+    $red = new \App\Models\Redirect();
     if (isset($_POST['_method']) and $_POST['_method'] == "PUT") {
 
 
         if (! $validat) {
                 $id = (int)$_POST['id'];
-                $SQL = "select * from foods where id =  ?";
-                $stmt = mysqli_prepare($link, $SQL);
-                mysqli_stmt_bind_param($stmt, 'i', $id);
-                mysqli_stmt_execute($stmt);
-                if ($result = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt))) {
-                    $file_name = $_FILES['image']["name"][0] != '' ? $_FILES['image']["name"][0] : $_POST['image-name'];
-                    $path = '../foods/' . $file_name;
+                if ($result = $food->find(compact("id"))->fetchAll(PDO::FETCH_ASSOC)[0]) {
+
+                    $image = $_FILES['image']["name"][0] != '' ? $_FILES['image']["name"][0] : $_POST['image-name'];
+                    $path = '../foods/' . $image;
                     move_uploaded_file($_FILES['image']['tmp_name'][0], $path);
+
                     $id = (int)$_POST['id'];
-                    $SQL = "update foods set image=?, name=?, price=?, description=? where id=?";
-                    $stmt = mysqli_prepare($link, $SQL);
                     $price = (int)$_POST['price'];
-                    mysqli_stmt_bind_param($stmt, 'ssisi', $file_name, $_POST['food-name'], $price, $_POST['description'], $id);
-                    mysqli_stmt_execute($stmt);
-                    echo '<script>window.location.replace("/test/templates/manage-food.php")</script>';
+                    $name = $_POST['food-name'];
+                    $description = $_POST['description'];
+
+                    $food->update(compact("id", "image","name", "price", "description"));
+                    echo $red->redirect("templates/manage-food.php");
 
                 }
             } else {
-                echo '<script>window.location.replace("/test/templates/edit-food.php")</script>';
+            echo $red->redirect("templates/edit-food.php");
             }
     }  else {
 
         if (! $validat) {
 
-            $file_name = $_FILES['image']["name"];
-            $path = '../foods/' . $file_name;
+            $image = $_FILES['image']["name"];
+            $path = '../foods/' . $image;
             $name = $_POST['food-name'];
             $price = (int)$_POST['price'];
             $description = $_POST['description'];
+
             if (move_uploaded_file($_FILES['image']['tmp_name'], $path)) {
 
 
-                $SQL = "INSERT INTO foods (`image`, `name`,`price`, `description`) VALUES (?, ?, ?, ?)";
-                $stmt = mysqli_prepare($link, $SQL);
-                mysqli_stmt_bind_param($stmt, 'ssis', $file_name, $name, $price, $description);
-                mysqli_stmt_execute($stmt);
+                $food->create(compact("image", "name", "price", "description"));
 
-                echo '<script>window.location.replace("/test/templates/manage-food.php")</script>';
+                echo $red->redirect("templates/manage-food.php");
 
             } else {
-                echo '<script>window.location.replace("/test/templates/manage-food.php")</script>';
+                echo $red->redirect("templates/manage-food.php");
 
             }
 
         } else {
-            echo '<script>window.location.replace("/test/templates/upload-food.php")</script>';
+            echo $red->redirect("templates/upload-food.php");
         }
     }
 }

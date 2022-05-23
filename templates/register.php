@@ -5,7 +5,8 @@ require_once "./../vendor/autoload.php";
 $obj = (new \App\Controllers\ErrorHandling());
 
 include '../view/header.php';
-session_destroy();
+
+
 ?>
 
 <style>

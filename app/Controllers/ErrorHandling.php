@@ -99,8 +99,10 @@ class ErrorHandling
                     }
                 }
             }
+            unset($_SESSION['errors']);
 
         }
+
     }
 }
 

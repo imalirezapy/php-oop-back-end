@@ -1,6 +1,6 @@
 <?php
-
+include "../vendor/autoload.php";
 $_SESSION['login'] = false;
 $_SESSION['isAdmin'] = false;
 
-echo '<script>window.location.replace("/test/templates/login.php")</script>';
+echo (new \App\Models\Redirect())->redirect("templates/login.php");
