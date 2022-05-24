@@ -2,7 +2,7 @@
 
 $config = ["port" => "3306",
         "host" => "localhost",
-        "dbname" => "mydb",
+        "dbname" => "test",
         "username" => "root",
         "password" => ""];
 return $config;

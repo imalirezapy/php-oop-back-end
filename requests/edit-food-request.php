@@ -1,7 +1,4 @@
 <?php
-include "../vendor/autoload.php";
-include "../app/database.php";
-
 
 $validat = (new \App\Controllers\ErrorHandling)->validateTest([
     'image' => ['required'],

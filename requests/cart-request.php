@@ -1,8 +1,6 @@
 <?php
-include "../app/database.php";
+
 include "../vendor/autoload.php";
-$link = connect();
-select_db();
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];

@@ -1,11 +1,8 @@
 <?php
 include "../app/database.php";
 include "../vendor/autoload.php";
-//include "../app/Error.php";
-$error_hadling = new \App\Controllers\ErrorHandling();
-$link = connect();
-select_db();
 
+$error_hadling = new \App\Controllers\ErrorHandling();
 
 $validat = $error_hadling->validateTest([
     'username' => ['required', 'min:3', 'max:30'],

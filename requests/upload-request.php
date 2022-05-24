@@ -1,9 +1,8 @@
 <?php
-include "../app/database.php";
+
 include "../vendor/autoload.php";
-$link = connect();
-select_db();
-//var_dump($_SERVER['REQUEST_METHOD']);
+
+
 $validat = (new \App\Controllers\ErrorHandling())->validateTest([
     'image' => ['required'],
     'food-name' => ['required', 'min:3'],
@@ -12,7 +11,7 @@ $validat = (new \App\Controllers\ErrorHandling())->validateTest([
 ]);
 
 $food = new \App\Models\Food();
-//var_dump($_FILES);
+
 if (isset($_POST)) {
     $red = new \App\Models\Redirect();
     if (isset($_POST['_method']) and $_POST['_method'] == "PUT") {
